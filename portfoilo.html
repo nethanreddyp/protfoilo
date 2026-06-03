@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P. Nethan Reddy — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+
+/* ── GLOW CANVAS ── */
+.glow-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  overflow:hidden;
+}
+.glow-orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:0.55;
+}
+.orb-blue{
+  width:700px;height:700px;
+  background:radial-gradient(circle,#1a4fd8 0%,transparent 70%);
+  top:-200px;left:-100px;
+  animation:floatB 12s ease-in-out infinite alternate;
+}
+.orb-orange{
+  width:600px;height:600px;
+  background:radial-gradient(circle,#c85a00 0%,transparent 70%);
+  top:-150px;right:-50px;
+  animation:floatO 15s ease-in-out infinite alternate;
+}
+.orb-purple{
+  width:400px;height:400px;
+  background:radial-gradient(circle,#5b2fc9 0%,transparent 70%);
+  bottom:20%;left:20%;
+  animation:floatP 18s ease-in-out infinite alternate;
+  opacity:0.3;
+}
+@keyframes floatB{from{transform:translate(0,0) scale(1);}to{transform:translate(60px,80px) scale(1.1);}}
+@keyframes floatO{from{transform:translate(0,0) scale(1);}to{transform:translate(-80px,60px) scale(1.15);}}
+@keyframes floatP{from{transform:translate(0,0);}to{transform:translate(40px,-60px);}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  z-index:200;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 5rem;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  transition:padding .3s;
+}
+.nav-logo{
+  font-size:.75rem;font-weight:600;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:#5cb8ff;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-size:.78rem;font-weight:500;
+  letter-spacing:1.2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+  text-decoration:none;
+  transition:color .3s;
+}
+.nav-links a:hover{color:#fff;}
+.nav-cta{
+  padding:.55rem 1.4rem;
+  background:#1d6fe8;
+  color:#fff;
+  border:none;border-radius:30px;
+  font-size:.75rem;font-weight:600;
+  letter-spacing:.5px;
+  cursor:pointer;text-decoration:none;
+  transition:background .3s,transform .2s;
+}
+.nav-cta:hover{background:#2a7fff;transform:translateY(-1px);}
+
+/* ── HERO ── */
+#hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:8rem 2rem 4rem;
+  z-index:1;
+}
+.hero-eyebrow{
+  font-size:.7rem;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:#5cb8ff;
+  margin-bottom:1.8rem;
+  opacity:0;animation:fadeUp .7s .1s forwards;
+}
+.hero-eyebrow span{color:rgba(255,255,255,0.35);}
+h1{
+  font-size:clamp(3.2rem,7.5vw,7.5rem);
+  font-weight:900;
+  line-height:1.0;
+  letter-spacing:-3px;
+  max-width:1000px;
+  opacity:0;animation:fadeUp .7s .25s forwards;
+}
+h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,0.4));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  margin-top:1.8rem;
+  font-size:1rem;font-weight:400;
+  color:rgba(255,255,255,0.55);
+  max-width:640px;
+  line-height:1.8;
+  opacity:0;animation:fadeUp .7s .4s forwards;
+}
+.hero-btns{
+  display:flex;gap:1rem;margin-top:2.5rem;
+  opacity:0;animation:fadeUp .7s .55s forwards;
+}
+.btn-blue{
+  padding:.8rem 2rem;
+  background:#1d6fe8;
+  color:#fff;border:none;border-radius:30px;
+  font-size:.85rem;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  transition:background .3s,transform .2s,box-shadow .3s;
+}
+.btn-blue:hover{background:#2a7fff;transform:translateY(-2px);box-shadow:0 8px 32px rgba(29,111,232,.5);}
+.btn-dark{
+  padding:.8rem 2rem;
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:30px;
+  font-size:.85rem;font-weight:600;
+  cursor:pointer;text-decoration:none;
+  backdrop-filter:blur(8px);
+  transition:background .3s,transform .2s;
+}
+.btn-dark:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px);}
+
+/* Photo */
+.hero-photo-wrap{
+  margin-top:4rem;
+  position:relative;
+  display:inline-block;
+  opacity:0;animation:fadeIn .9s .6s forwards;
+}
+.hero-photo-ring{
+  width:200px;height:200px;
+  border-radius:50%;
+  background:conic-gradient(#1d6fe8,#c85a00,#5b2fc9,#1d6fe8);
+  padding:3px;
+  display:flex;align-items:center;justify-content:center;
+  animation:spin 8s linear infinite;
+  margin:0 auto;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.hero-photo-inner{
+  width:100%;height:100%;
+  border-radius:50%;overflow:hidden;
+  background:#000;
+}
+.hero-photo-inner img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center top;
+  display:block;
+}
+.hero-badge{
+  position:absolute;
+  bottom:-8px;left:50%;transform:translateX(-50%);
+  background:#1d6fe8;
+  color:#fff;
+  font-size:.65rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:.4rem 1.1rem;
+  border-radius:20px;
+  white-space:nowrap;
+  box-shadow:0 4px 20px rgba(29,111,232,.5);
+}
+
+/* ── STATS ── */
+.stats-row{
+  position:relative;z-index:1;
+  display:flex;justify-content:center;
+  gap:0;
+  border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02);
+  backdrop-filter:blur(10px);
+}
+.stat{
+  flex:1;max-width:220px;
+  text-align:center;padding:2rem 1rem;
+  border-right:1px solid rgba(255,255,255,0.06);
+  opacity:0;animation:fadeUp .6s forwards;
+}
+.stat:last-child{border-right:none;}
+.stat:nth-child(1){animation-delay:.1s;}
+.stat:nth-child(2){animation-delay:.2s;}
+.stat:nth-child(3){animation-delay:.3s;}
+.stat:nth-child(4){animation-delay:.4s;}
+.stat-n{
+  font-size:2.6rem;font-weight:900;
+  background:linear-gradient(135deg,#fff,rgba(255,255,255,.5));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-l{
+  font-size:.65rem;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  margin-top:4px;
+}
+
+/* ── SECTION ── */
+section.content{
+  position:relative;z-index:1;
+  padding:7rem 5rem;
+}
+.sec-label{
+  font-size:.65rem;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:#5cb8ff;
+  margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.sec-label::before{
+  content:'';
+  display:inline-block;width:32px;height:1px;background:#5cb8ff;
+}
+.sec-title{
+  font-size:clamp(2rem,4vw,3.8rem);
+  font-weight:900;letter-spacing:-1.5px;
+  line-height:1.05;color:#fff;
+  margin-bottom:1rem;
+}
+.sec-sub{
+  font-size:.95rem;color:rgba(255,255,255,0.45);
+  max-width:520px;line-height:1.8;
+}
+
+/* ── ABOUT ── */
+#about{background:#000;}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;
+  margin-top:3.5rem;
+  align-items:start;
+}
+.about-text{
+  font-size:.95rem;color:rgba(255,255,255,0.55);
+  line-height:1.9;margin-bottom:1.2rem;
+}
+.about-text strong{color:#fff;font-weight:600;}
+.contact-items{margin-top:2rem;display:flex;flex-direction:column;gap:.9rem;}
+.ci{
+  display:flex;align-items:center;gap:1rem;
+  font-size:.85rem;color:rgba(255,255,255,0.5);
+}
+.ci-icon{
+  width:38px;height:38px;
+  border-radius:50%;
+  background:rgba(29,111,232,0.12);
+  border:1px solid rgba(29,111,232,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;flex-shrink:0;
+}
+.ci a{color:#5cb8ff;text-decoration:none;}
+.ci a:hover{text-decoration:underline;}
+
+/* skill bars */
+.skill-bars{display:flex;flex-direction:column;gap:1.4rem;}
+.sb-row{}
+.sb-top{
+  display:flex;justify-content:space-between;
+  font-size:.8rem;color:rgba(255,255,255,.65);
+  margin-bottom:7px;font-weight:500;
+}
+.sb-top span:last-child{color:#5cb8ff;}
+.sb-track{
+  height:3px;background:rgba(255,255,255,0.07);
+  border-radius:2px;overflow:hidden;
+}
+.sb-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,#1d6fe8,#5cb8ff);
+  border-radius:2px;
+  transition:width 1.4s ease;
+}
+.soft-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:2rem;}
+.sp{
+  font-size:.72rem;font-weight:500;
+  padding:5px 12px;border-radius:20px;
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.55);
+  background:rgba(255,255,255,0.04);
+}
+
+/* ── SKILLS ── */
+#skills{background:#050505;}
+.sk-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.2rem;
+  margin-top:3.5rem;
+}
+.sk-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:14px;
+  padding:1.6rem;
+  transition:border-color .3s,background .3s,transform .3s;
+  position:relative;overflow:hidden;
+}
+.sk-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,#1d6fe8,transparent);
+  opacity:0;transition:opacity .3s;
+}
+.sk-card:hover{
+  border-color:rgba(29,111,232,.4);
+  background:rgba(29,111,232,.04);
+  transform:translateY(-4px);
+}
+.sk-card:hover::before{opacity:1;}
+.sk-icon{font-size:1.4rem;margin-bottom:.9rem;}
+.sk-cat{
+  font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#5cb8ff;margin-bottom:.8rem;
+}
+.sk-pills{display:flex;flex-wrap:wrap;gap:6px;}
+.skp{
+  font-size:.72rem;padding:4px 10px;border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.7);
+  transition:background .2s;
+}
+.sk-card:hover .skp{background:rgba(29,111,232,0.1);border-color:rgba(29,111,232,0.25);}
+
+/* ── PROJECTS ── */
+#projects{background:#000;}
+.proj-list{display:flex;flex-direction:column;gap:2rem;margin-top:3.5rem;}
+.proj-card{
+  background:rgba(255,255,255,0.025);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:16px;
+  padding:2.5rem;
+  display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.proj-card::before{
+  content:'';position:absolute;
+  inset:0;border-radius:16px;
+  background:radial-gradient(ellipse at 0% 50%,rgba(29,111,232,.06) 0%,transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.proj-card:hover{
+  border-color:rgba(29,111,232,.35);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.proj-card:hover::before{opacity:1;}
+.proj-idx{
+  font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.25);margin-bottom:.5rem;
+}
+.proj-name{
+  font-size:1.6rem;font-weight:800;
+  color:#fff;letter-spacing:-.5px;line-height:1.15;
+  margin-bottom:.5rem;
+}
+.proj-year{
+  font-size:.72rem;font-weight:500;letter-spacing:1px;
+  color:rgba(255,255,255,0.3);margin-bottom:1rem;
+}
+.proj-desc{
+  font-size:.88rem;color:rgba(255,255,255,0.5);
+  line-height:1.85;max-width:640px;
+}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:1.4rem;}
+.ptag{
+  font-size:.68rem;font-weight:600;
+  padding:4px 11px;border-radius:20px;
+  background:rgba(29,111,232,0.1);
+  border:1px solid rgba(29,111,232,0.25);
+  color:#5cb8ff;
+}
+.proj-badge{
+  font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  background:#1d6fe8;color:#fff;
+  padding:.55rem 1.2rem;border-radius:30px;
+  white-space:nowrap;align-self:flex-start;
+  box-shadow:0 4px 20px rgba(29,111,232,.35);
+}
+
+/* ── EDUCATION ── */
+#education{background:#050505;}
+.edu-tl{
+  position:relative;margin-top:3.5rem;
+  padding-left:2rem;
+}
+.edu-tl::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:1px;
+  background:rgba(255,255,255,0.07);
+}
+.edu-item{
+  position:relative;
+  padding:0 0 3rem 2.5rem;
+}
+.edu-item:last-child{padding-bottom:0;}
+.edu-dot{
+  position:absolute;left:-6px;top:3px;
+  width:13px;height:13px;border-radius:50%;
+  background:#1d6fe8;
+  box-shadow:0 0 0 4px rgba(29,111,232,.2);
+}
+.edu-yr{
+  font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#5cb8ff;margin-bottom:.5rem;
+}
+.edu-deg{
+  font-size:1.3rem;font-weight:800;color:#fff;
+  letter-spacing:-.3px;line-height:1.2;
+}
+.edu-inst{
+  font-size:.83rem;color:rgba(255,255,255,0.4);
+  margin-top:.35rem;
+}
+.edu-score{
+  display:inline-block;margin-top:.7rem;
+  font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:#5cb8ff;
+  background:rgba(29,111,232,0.1);
+  border:1px solid rgba(29,111,232,0.25);
+  padding:.35rem 1rem;border-radius:20px;
+}
+
+/* ── CONTACT ── */
+#contact{
+  position:relative;z-index:1;
+  text-align:center;padding:8rem 5rem;
+  background:#000;
+}
+.contact-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 80%,rgba(29,111,232,.1) 0%,transparent 60%);
+}
+.contact-eyebrow{
+  font-size:.65rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:#5cb8ff;margin-bottom:1.5rem;
+}
+.contact-h{
+  font-size:clamp(2.2rem,5vw,4.5rem);
+  font-weight:900;letter-spacing:-2px;line-height:1.05;
+  margin-bottom:1rem;
+}
+.contact-sub{font-size:.95rem;color:rgba(255,255,255,.45);margin-bottom:3rem;}
+.contact-chips{
+  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
+}
+.cchip{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.8rem 1.6rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.09);
+  border-radius:12px;
+  font-size:.83rem;color:rgba(255,255,255,.7);
+  text-decoration:none;
+  transition:border-color .3s,background .3s,transform .2s;
+  backdrop-filter:blur(8px);
+}
+.cchip:hover{
+  border-color:rgba(29,111,232,.5);
+  background:rgba(29,111,232,.07);
+  transform:translateY(-3px);
+  color:#fff;
+}
+.cchip .ci{color:#5cb8ff;font-size:1rem;}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid rgba(255,255,255,0.06);
+  background:rgba(0,0,0,.8);
+  padding:2rem 5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.75rem;color:rgba(255,255,255,0.25);
+  letter-spacing:.5px;
+}
+.f-logo{
+  font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:#000;}
+::-webkit-scrollbar-thumb{background:#1d6fe8;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div class="glow-bg">
+  <div class="glow-orb orb-blue"></div>
+  <div class="glow-orb orb-orange"></div>
+  <div class="glow-orb orb-purple"></div>
+</div>
+
+<nav>
+  <div class="nav-logo">Nethan Reddy &nbsp;•&nbsp; Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:nethanreddyp03@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-eyebrow">P. Nethan Reddy &nbsp;<span>•</span>&nbsp; Software Developer</div>
+  <h1><em>Architectural Precision.<br>Data-Driven</em> Solutions.</h1>
+  <p class="hero-sub">I design full-stack applications and machine learning systems engineered to process complex data at scale — building clean, high-integrity digital experiences from the ground up.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-blue">Explore Projects</a>
+    <a href="#contact" class="btn-dark">Get in Touch</a>
+  </div>
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-ring">
+      <div class="hero-photo-inner">
+         <img src="avatar.jpg" alt="Profile Photo">
+      </div>
+    </div>
+    <div class="hero-badge">Available for Work</div>
+  </div>
+</section>
+
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-n">2+</div>
+    <div class="stat-l">Years Experience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">15+</div>
+    <div class="stat-l">Projects Completed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">500+</div>
+    <div class="stat-l">Git Commits</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">24/7</div>
+    <div class="stat-l">System Monitoring</div>
+  </div>
+</div>
+
+<section id="about" class="content reveal">
+  <span class="sec-label">Identity</span>
+  <h2 class="sec-title">About Me</h2>
+  <p class="sec-sub">A brief overview of my professional trajectory, foundational skills, and what drives my development approach.</p>
+  <div class="about-grid">
+    <div>
+      <p class="about-text">I am a passionate <strong>Software Developer</strong> based out of Chennai, Tamil Nadu. My expertise lies at the intersection of robust backend frameworks, intuitive system architectures, and machine learning models built to decode data complexities.</p>
+      <div class="contact-items">
+        <div class="ci"><div class="ci-icon">📞</div>+91 73387 33276</div>
+        <div class="ci"><div class="ci-icon">✉️</div><a href="mailto:nethanreddyp03@gmail.com">nethanreddyp03@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="skill-bars">
+      <div class="sb-row">
+        <div class="sb-top"><span>Backend Architecture</span><span>90%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width: 90%;"></div></div>
+      </div>
+      <div class="sb-row">
+        <div class="sb-top"><span>Machine Learning & Data Intelligence</span><span>85%</span></div>
+        <div class="sb-track"><div class="sb-fill" style="width: 85%;"></div></div>
+      </div>
+      <div class="soft-pills">
+        <span class="sp">Problem Solving</span>
+        <span class="sp">Agile Methodologies</span>
+        <span class="sp">System Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="content reveal">
+  <span class="sec-label">Expertise</span>
+  <h2 class="sec-title">Technical Skills</h2>
+  <p class="sec-sub">An inventory of tools, ecosystems, and languages I leverage regularly to deliver stable build solutions.</p>
+  <div class="sk-grid">
+    <div class="sk-card">
+      <div class="sk-icon">💻</div>
+      <div class="sk-cat">Languages</div>
+      <div class="sk-pills">
+        <span class="skp">Python</span><span class="skp">Java</span><span class="skp">C++</span><span class="skp">JavaScript</span><span class="skp">SQL</span>
+      </div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">⚙️</div>
+      <div class="sk-cat">Frameworks & Tools</div>
+      <div class="sk-pills">
+        <span class="skp">Django</span><span class="skp">Node.js</span><span class="skp">React</span><span class="skp">Git</span><span class="skp">Docker</span>
+      </div>
+    </div>
+    <div class="sk-card">
+      <div class="sk-icon">📊</div>
+      <div class="sk-cat">Data Systems</div>
+      <div class="sk-pills">
+        <span class="skp">PostgreSQL</span><span class="skp">MongoDB</span><span class="skp">TensorFlow</span><span class="skp">Pandas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="content reveal">
+  <span class="sec-label">Showcase</span>
+  <h2 class="sec-title">Selected Projects</h2>
+  <p class="sec-sub">A curated selection of high-impact production apps and architectural case studies.</p>
+  <div class="proj-list">
+    <div class="proj-card">
+      <div>
+        <div class="proj-idx">Project #01</div>
+        <h3 class="proj-name">Intelligent Log Analyzer</h3>
+        <div class="proj-year">2024 · Enterprise Optimization</div>
+        <p class="proj-desc">Developed an automated pipeline system that aggregates, processes, and classifies server errors across distributed infrastructures using natural language processing architectures to reduce resolution times.</p>
+        <div class="proj-tags">
+          <span class="ptag">Python</span><span class="ptag">FastAPI</span><span class="skp">Docker</span>
+        </div>
+      </div>
+      <span class="proj-badge">Active</span>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="content reveal">
+  <span class="sec-label">Milestones</span>
+  <h2 class="sec-title">Education</h2>
+  <p class="sec-sub">Academic qualifications and certifications confirming engineering baselines.</p>
+  <div class="edu-tl">
+    <div class="edu-item">
+      <div class="edu-dot"></div>
+      <div class="edu-yr">2021 — 2025</div>
+      <div class="edu-deg">Bachelor of Engineering in Computer Science</div>
+      <div class="edu-inst">Anna University Affiliate Institution · Chennai, India</div>
+      <div class="edu-score">First Class with Distinction</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-glow"></div>
+  <div class="contact-eyebrow">Initiation</div>
+  <h2 class="contact-h">Let's Build Something<br>Remarkable.</h2>
+  <p class="contact-sub">Currently open to internship options, direct technical contracts, and remote entry-level software engineering positions.</p>
+  <div class="contact-chips reveal" style="transition-delay:.3s">
+    <a href="tel:+917338733276" class="cchip"><span class="ci">📞</span> +91 73387 33276</a>
+    <a href="mailto:nethanreddyp03@gmail.com" class="cchip"><span class="ci">✉️</span> nethanreddyp03@gmail.com</a>
+    <a href="https://linkedin.com/in/nethan-reddy-p-/" target="_blank" class="cchip"><span class="ci">🔗</span> LinkedIn</a>
+    <span class="cchip"><span class="ci">📍</span> Chennai, Tamil Nadu</span>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">P. Nethan Reddy · Portfolio</div>
+  <div>© 2024 · Chennai, India · Open to Internships</div>
+</footer>
+
+<script>
+// Scroll reveals animation handler
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+// Skill bars active layout filler animation trigger logic
+const barObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.sb-fill').forEach((b,i)=>{
+        setTimeout(()=>{ b.style.width = b.parentNode.previousElementSibling.querySelectorAll('span')[1].innerText; }, i*150);
+      });
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.skill-bars').forEach(sb=>barObs.observe(sb));
+</script>
+</body>
+</html>
